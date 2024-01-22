@@ -258,8 +258,17 @@ body {
   margin: 0;
   font-size: 1rem;
 }
+
+.timeline_text .timeline_subtext{
+  font-size: 0.8rem;
+  color: grey;
+}
 .timeline_text .timeline_textheader{
   font-weight: bold;
+}
+.timeline_text p a{
+  text-decoration: none;
+  color: #d24001;
 }
 
 /* *********************************projects************************ */
