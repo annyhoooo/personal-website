@@ -1,0 +1,24 @@
+{% extends '0_basic.html' %}
+
+{%block myBlock%}
+
+<div class="home_big" style="background-image: url('{{ url_for('static', filename='img/1_home/background.jpg') }}');">
+  <div class="home_center">
+    <p id="home_dynamic-text">Web Development</p>
+    <p class="home_ann">@ann.Lab</p>
+  </div>
+  
+</div>
+
+<script>
+  const words = ["Web Development", "Design", "Architecture"];
+  let index = 0;
+  const dynamicText = document.getElementById('home_dynamic-text');
+
+  setInterval(() => {
+  dynamicText.textContent = words[index];
+  index = (index + 1) % words.length;
+  }, 1000);
+</script>
+
+{%endblock%}

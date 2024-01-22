@@ -1,0 +1,79 @@
+{% extends '0_basic.html' %}
+
+{%block myBlock%}
+
+<div class="sign-box">
+  <p class="sign-header">Sign Up Here</p>
+  <form method="post" id="signup_form" class="sign-form">
+    {{ form.hidden_tag() }}
+    <p>Username:</p>
+    {{ form.username(class="sign-input") }}
+    <!-- {% for error in form.username.errors %}
+      <p class="sign-formhint">{{ error }}</p>
+    {% endfor %} -->
+    <br>
+    <p>Password: </p>
+    {{ form.password(class="sign-input") }}
+    <!-- {% for error in form.password.errors %}
+      <p class="sign-formhint">{{ error }}</p>
+    {% endfor %} -->
+    <br>
+    {{ form.submit(class="sign-submit") }}
+  </form>
+  
+  {% for error in form.username.errors %}
+  <p class="signup_hint">{{ error }}</p>
+  {% endfor %}
+
+  {% for error in form.password.errors %}
+  <p class="signup_hint">{{ error }}</p>
+  {% endfor %} 
+
+
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class="flashes">
+    {% for message in messages %}
+        <p class="signup_hint">{{ message }}</p>
+    {% endfor %}
+    </ul>
+  {% endif %}
+  {% endwith %}
+  
+  <div class="sign-last">Already have an account? <a href="/login">Log in</a>
+  </div>
+</div>
+
+<!-- <script>
+  function insert_user() {
+    var username = document.forms["signup_form"]["username"].value;
+    var password = document.forms["signup_form"]["password"].value;
+    var hint = document.getElementById("signup_hint");
+    params = 'username='+username+'&password='+password;
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", '/signup', true); 
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.onload = function() {
+      if (xhttp.readyState === 4 && xhttp.status === 200) {
+        if (xhttp.responseText === "Registration successful"){
+          console.log(xhttp.responseText);
+          hint.innerHTML = `
+            <a href="/login">Welcome ${username}, Click here to log in!</a>
+          `;
+        }
+        else{
+          console.log(xhttp.responseText);
+          hint.innerHTML = xhttp.responseText;
+        }
+      } else {
+        console.error(xhttp.statusText);
+      }
+    };
+    xhttp.send(params);
+    return false;
+  }
+
+</script> -->
+
+{%endblock%}

@@ -1,0 +1,63 @@
+{% extends '0_basic.html' %}
+
+{%block myBlock%}
+<!-- filter -->
+<form id="filter-form">
+    <button type="button" id="show-all">All</button>
+    <select name="industry" id="industry-select">
+        <option value="">-Select Industry-</option>
+        {% for industry in industries%}
+        <option value="{{industry}}">{{industry}}</option>
+        {% endfor %}
+    </select>
+    <select name="location" id="location-select">
+        <option value="">-Select Location-</option>
+        {% for location in locations%}
+        <option value="{{location}}">{{location}}</option>
+        {% endfor %}
+    </select>
+    <select name="year" id="year-select">
+        <option value="">-Select Year-</option>
+        {% for year in years%}
+        <option value="{{year}}">{{year}}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Apply Filter</button>
+</form>
+<!-- main -->
+<div id="projects-container">
+    {% for project in projects %}
+    <div class="project">
+        <img src="{{ url_for('get_first_image', project_id=project.id) }}" alt="{{project.title}}"/>
+        <div class="project-info">
+            <p>{{project.year}}</p>
+            <h2>{{project.title}}</h2>
+        </div>
+        <div class="project-info2">
+            <h3>{{project.subtitle}}</h3>
+            <p>{{project.location}}</p>
+            <p>★ {{ rating }}/10</p>
+        </div>
+        <div class="project-readmore">
+            <a href="{{ url_for('project_detail', project_id=project.id) }}" class="project-link">ReadMore</a>
+        </div>
+    </div>
+    </a>
+    {% endfor %}
+</div>
+<!-- changepage -->
+<div id="changepage">
+    {% if current_page > 1 %}
+        <button onclick="loadProjects({{ current_page - 1 }})">&larr;</button>
+    {% endif %}
+    {% for i in range(1, total_pages + 1) %}
+    <button onclick="loadProjects({{ i }}, currentFilterParams)" {% if i == current_page %}class="active"{% endif %}>{{ i }}</button>
+    {% endfor %}
+    {% if current_page < total_pages %}
+        <button onclick="loadProjects({{ current_page + 1 }})">&rarr;</button>
+    {% endif %}
+</div>
+
+<script src="{{ url_for('static', filename='script_3_project.js') }}"></script>
+
+{%endblock%}

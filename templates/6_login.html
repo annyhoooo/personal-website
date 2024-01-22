@@ -1,0 +1,30 @@
+{% extends '0_basic.html' %}
+
+{%block myBlock%}
+
+<div class="sign-box">
+  <p class="sign-header">Log In Here</p>
+  <form method="post" action="/login" class="sign-form">
+    {{ form.hidden_tag() }}
+    <p>Username:</p> {{ form.username(class="sign-input") }}<br>
+    <p>Password: </p>{{ form.password(class="sign-input") }}<br>
+    {{ form.submit(class="sign-submit") }}
+  </form>
+
+  
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul class="flashes">
+      {% for message in messages %}
+        <p class="login_hint">{{ message }}</p>
+      {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+
+  <div class="sign-last">No account yet? <a href="/signup">Sign Up</a>
+  </div>
+</div>
+
+
+{%endblock%}

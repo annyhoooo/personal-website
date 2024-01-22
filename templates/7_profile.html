@@ -1,0 +1,39 @@
+{% extends '0_basic.html' %}
+
+{%block myBlock%}
+
+<div class="profile-box">
+  <div class="profile-header">
+    <p class="profile-title">Your account</p>
+    <p class="profile-subtitle">{{ username }}</p>
+  </div>
+</div>
+<div class="profile-comment"><p>Your comments:</p></div>
+
+<div class="comments-container">
+  {% for comment in comments %}
+  <div class="comment-item">
+      <div class="comment-user-initial">
+        <div>
+          {{ username[0].upper() }}
+        </div>
+      </div>
+      <div class="comment-content">
+          <div class="comment-user">
+              {{ username }}
+          </div>
+          <div class="comment-time">
+              {{ comment.time}}
+          </div>
+          <p>{{ comment.comment }}</p>
+          <div class="comment-rating">
+              Rating: {{ comment.rating }}/10
+          </div>
+      </div>
+  </div>
+  {% else %}
+  <p class="profile-nocomment">No comments yet.</p>
+  {% endfor %}
+</div>
+
+{%endblock%}

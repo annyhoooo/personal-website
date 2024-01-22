@@ -1,0 +1,90 @@
+{% extends '0_basic.html' %}
+
+{%block myBlock%}
+
+<div class="detail-box">
+  <div class="detail-header">
+    <p class="detail-title">{{ project.title }}</p>
+    <p class="detail-subtitle">{{ project.subtitle }}</p>
+    <p class="detail-subsubtitle"> ★ {{ rating_avr }}/10</p>
+  </div>
+</div>
+
+<div class="detail-list">
+  <p>Location: {{project.location}}</p>
+  <p>Year: {{project.year}}</p>
+  <p>Industry: {{project.industry}}</p>
+  <p>Area: {{project.area}}</p>
+  <p>Status: {{project.status}}</p>
+</div>
+
+<div class="detail-content">
+  <p>{{project.content}}</p>
+</div>
+
+</div><div class="detail-image-container">
+  {% for image in images %}
+      <img src="{{ image.path }}" alt="{{ image.name }}">
+      <div class="detail-image-name">▲ {{ image.name }}</div>
+  {% endfor %}
+
+<!-- comments!!! -->
+
+<div class="comment-section" >
+  <h2>Comments</h2>
+  <form method="post" id="comment-form" onsubmit="return validateForm()">
+    <div class="comment-input-group">
+      <textarea name="comment" placeholder="Your opinions" required></textarea>
+    </div>
+    <div class="comment-input-group">
+      <nav>
+        <label for="rating">Rating:</label>
+        <input type="number" name="rating" id="rating" min="1" max="10" required>
+      </nav>
+    </div>
+    <input type="hidden" name="project_id" value="{{ project_id }}">
+    <div class="comment-button">
+      <button type="submit" id="sendComment">Send</button>
+    </div>
+  </form>
+</div>
+
+<div class="comments-container">
+  {% for comment in comments %}
+  <div class="comment-item">
+      <div class="comment-user-initial">
+        <div>
+          {{ comment.username[0].upper() }}
+        </div>
+      </div>
+      <div class="comment-content">
+          <div class="comment-user">
+              {{ comment.username }}
+          </div>
+          <div class="comment-time">
+              {{ comment.time}}
+          </div>
+          <p>{{ comment.comment }}</p>
+          <div class="comment-rating">
+              Rating: {{ comment.rating }}/10
+          </div>
+      </div>
+  </div>
+  {% else %}
+  <p>No comments yet.</p>
+  {% endfor %}
+</div>
+<script>
+  function validateForm() {
+    var comment = document.forms["comment-form"]["comment"].value;
+    var rating = document.forms["comment-form"]["rating"].value;
+    if (comment === "" || rating === "") {
+        alert("Comment and rating must be filled out");
+        return false;
+    }
+    return true;
+}
+
+</script>
+
+{%endblock%}

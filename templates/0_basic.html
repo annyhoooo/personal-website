@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>annLab</title>
+  </head>
+  <body>
+    <!-- header -->
+    <div class="header-plus">
+      <header class="header">
+        <nav class="header-left">
+          <a href="/about" class="header-about">About</a>
+          <a href="/projects" class="header-projects">Projects</a>
+        </nav>
+        <a href="/home" class = "header-logo"><img src="{{ url_for('static', filename='img/0_header/logo.png') }}"/></a>
+        <nav class="header-right">
+          {% if not session.logged_in %}
+            <div class="header-right-signout">
+              <a href="/login" class="header-login">LogIn</a>
+              <a href="/signup" class="header-signup">SignUp</a>
+            </div>
+          {% else %}
+            <div class="header-dropdown">
+              <button class="header-dropbutton">{{session.username[0].upper()}}</button>
+              <div class="header-droptext">
+                <a href="/profile">Profile</a>
+                <a href="/logout">Sign Out</a>
+              </div>
+            </div>
+          {% endif %}
+        </nav>
+      </header>
+    </div>
+    {%block myBlock%}{%endblock%}
+    <!-- footer -->
+    <footer class="footer">
+      <div class="footer-main">
+        <div class="footer-mail">
+          <p>Get in Touch:</p>
+          <p>Mail: huanying1130@gmail.com</p>
+          <p>Address: Abacws, Senghennydd Rd, Cardiff CF24 4AG</p>
+        </div>
+        <div class="footer-logos">
+          <a href="https://www.facebook.com/hu.anying.739"><img src="{{ url_for('static', filename='img/0_footer/facebook.png') }}"/></a>
+          <a href="https://www.instagram.com/annyhuuuuu/"><img src="{{ url_for('static', filename='img/0_footer/instagram.png') }}"/></a>
+          <a href="https://www.linkedin.com/in/anny-hu-09380a271/"><img src="{{ url_for('static', filename='img/0_footer/linkedin.png') }}"/></a>
+        </div>
+      </div>
+      <div class="footer-footer">© 2023 Anying Hu | 胡安颖</div>
+    </footer>
+  </body>
+</html>
