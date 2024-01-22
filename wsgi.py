@@ -1,0 +1,1 @@
+from annlab import app as application
